@@ -1,3 +1,5 @@
+(!WARNING!): This code currently doesn't work, this warning will be removed when it's fixed
+
 Before Compilation: Make sure to install nasm before typing to compile it. 
 
 Compilation and running:
