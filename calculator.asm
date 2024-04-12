@@ -78,6 +78,7 @@
 
     ; converts the integer to a string
     mov rax,%1
+    mov rsi,10
     %%loop:
         xor rdx, rdx
         shl rsi,8
@@ -123,6 +124,7 @@ section .bss
     first_num resb 8
     second_num resb 8
     operator resb 1
+    result_num resb 8
 
 ; starts the program
 section .text
@@ -166,7 +168,8 @@ _add:
     add r9, r10
     print result_msg,result_len
     int_str r9,r8
-    print r9,r8
+    mov [result_num],r9
+    print result_num,r8
     jmp _end
 
 ; the function called when subtraction is the operation
@@ -174,7 +177,8 @@ _sub:
     sub r9, r10
     print result_msg,result_len
     int_str r9,r8
-    print r9,r8
+    mov [result_num],r9
+    print result_num,r8
     jmp _end
 
 ; the function called when multiplication is the operation
@@ -184,7 +188,8 @@ _mul:
     mov r9, rax
     print result_msg,result_len
     int_str r9,r8
-    print r9,r8
+    mov [result_num],r9
+    print result_num,r8
     jmp _end
 
 ; the function called when division is the operation
@@ -194,7 +199,8 @@ _div:
     mov r9, rax
     print result_msg,result_len
     int_str r9,r8
-    print r9,r8
+    mov [result_num],r9
+    print result_num,r8
     jmp _end
 
 ; exits the program
