@@ -118,6 +118,8 @@ section .data
     operator_len equ $-operator_msg
     result_msg db "Result",58
     result_len equ $-result_msg
+    end_msg db "End the program? (y,n)",58
+    end_msg_len equ $-end_msg
 
 ; declares the input variables and their max length
 section .bss
@@ -125,6 +127,7 @@ section .bss
     second_num resb 8
     operator resb 1
     result_num resb 8
+    end resb 1
 
 ; starts the program
 section .text
@@ -170,7 +173,7 @@ _add:
     int_str r9,r8
     mov [result_num],r9
     print result_num,r8
-    jmp _end
+    jmp _check_end
 
 ; the function called when subtraction is the operation
 _sub:
@@ -179,7 +182,7 @@ _sub:
     int_str r9,r8
     mov [result_num],r9
     print result_num,r8
-    jmp _end
+    jmp _check_end
 
 ; the function called when multiplication is the operation
 _mul:
@@ -190,7 +193,7 @@ _mul:
     int_str r9,r8
     mov [result_num],r9
     print result_num,r8
-    jmp _end
+    jmp _check_end
 
 ; the function called when division is the operation
 _div:
@@ -201,7 +204,17 @@ _div:
     int_str r9,r8
     mov [result_num],r9
     print result_num,r8
-    jmp _end
+    jmp _check_end
+
+_check_end:
+    xor r8,r8
+    get_val end,end_msg,end_msg_len,r8
+    mov rax,10
+    shl rax,8
+    mov al,'y'
+    cmp r8,rax
+    je _end
+    jne _start
 
 ; exits the program
 _end:
