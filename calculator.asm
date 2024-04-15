@@ -135,6 +135,21 @@ section .text
 
 ; the actual code
 _start:    
+    xor rax,rax
+    xor rcx,rcx
+    xor rdx,rdx
+    xor rdi,rdi
+    xor rsi,rsi
+    xor r8,r8
+    xor r9,r9
+    xor r10,r10
+    xor r11,r11
+    mov qword[first_num],0
+    mov qword[second_num],0
+    mov qword[operator],0
+    mov qword[result_num],0
+    mov qword[end],0
+    
     print intro,intro_len
     get_val first_num,first_num_msg,first_num_msg_len,r9
     str_int r9
