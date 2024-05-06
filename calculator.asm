@@ -118,6 +118,8 @@ section .data
     operator_len equ $-operator_msg
     result_msg db "Result",58
     result_len equ $-result_msg
+    remainder_msg db "Remainder",58
+    remainder_msg_len equ $-remainder_msg
     end_msg db "End the program? (y,n)",58
     end_msg_len equ $-end_msg
 
@@ -127,6 +129,7 @@ section .bss
     second_num resb 8
     operator resb 1
     result_num resb 8
+    remainder_num resb 8
     end resb 1
 
 ; starts the program
@@ -215,10 +218,16 @@ _div:
     mov rax, r9
     idiv r10
     mov r9, rax
+    mov rsp,rdx
     print result_msg,result_len
     int_str r9,r8
+    mov rdx,rsp
+    int_str rdx,rsp
     mov [result_num],r9
+    mov [remainder_num],rdx
     print result_num,r8
+    print remainder_msg,remainder_msg_len
+    print remainder_num,rsp
     jmp _check_end
 
 _check_end:
